@@ -1,4 +1,4 @@
-package dev.flarebake;
+package com.unornate.flarebake;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

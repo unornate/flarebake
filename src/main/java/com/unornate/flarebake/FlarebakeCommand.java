@@ -1,9 +1,8 @@
-package dev.flarebake;
+package com.unornate.flarebake;
 
-import picocli.CommandLine.Command;
 import picocli.CommandLine;
+import picocli.CommandLine.Command;
 
-/** Root command. With no subcommand it prints the usage help. */
 @Command(
         name = "flarebake",
         mixinStandardHelpOptions = true,

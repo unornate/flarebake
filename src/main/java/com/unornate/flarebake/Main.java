@@ -1,8 +1,7 @@
-package dev.flarebake;
+package com.unornate.flarebake;
 
 import picocli.CommandLine;
 
-/** Entry point for the {@code flarebake} CLI. */
 public final class Main {
 
     private Main() {

@@ -1,4 +1,4 @@
-package dev.flarebake;
+package com.unornate.flarebake;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-/** {@code flarebake init} - writes the Workers deployment files. */
 @Command(
         name = "init",
         mixinStandardHelpOptions = true,

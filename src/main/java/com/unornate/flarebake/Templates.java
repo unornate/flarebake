@@ -1,4 +1,4 @@
-package dev.flarebake;
+package com.unornate.flarebake;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,7 +6,6 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-/** Loads the bundled text templates and substitutes {@code {{PLACEHOLDER}}} tokens. */
 final class Templates {
 
     private Templates() {

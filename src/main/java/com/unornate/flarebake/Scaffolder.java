@@ -1,4 +1,4 @@
-package dev.flarebake;
+package com.unornate.flarebake;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,19 +14,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Writes the Cloudflare Workers deployment files into a JBake project.
- *
- * <p>All filesystem work lives here so it can be exercised without going
- * through the CLI.</p>
- */
 public final class Scaffolder {
 
-    /** File generated for Wrangler. */
     public static final String WRANGLER_FILE = "wrangler.toml";
-    /** Build script invoked by Wrangler's {@code [build]} command. */
     public static final String BUILD_SCRIPT = "build.sh";
-    /** VCS ignore file that is merged, never replaced. */
     public static final String GITIGNORE = ".gitignore";
 
     private static final String GITIGNORE_HEADER = "# Cloudflare Workers (flarebake)";
@@ -38,7 +29,6 @@ public final class Scaffolder {
         this.options = options;
     }
 
-    /** Runs the scaffold and reports what happened. */
     public Result run() throws IOException {
         Path root = options.root();
         List<String> created = new ArrayList<>();
@@ -120,7 +110,6 @@ public final class Scaffolder {
             permissions.add(PosixFilePermission.OTHERS_EXECUTE);
             Files.setPosixFilePermissions(file, permissions);
         } catch (UnsupportedOperationException | IOException ignored) {
-            // Non-POSIX filesystem (for example Windows): nothing to do.
         }
     }
 
@@ -128,10 +117,6 @@ public final class Scaffolder {
         return options.root().relativize(file).toString();
     }
 
-    /**
-     * Turns an arbitrary directory name into a valid Worker name: lowercase,
-     * alphanumeric plus hyphens, no leading/trailing or repeated hyphens.
-     */
     public static String sanitizeName(String raw) {
         String name = raw.toLowerCase(Locale.ROOT)
                 .replaceAll("[^a-z0-9-]+", "-")
@@ -147,12 +132,10 @@ public final class Scaffolder {
         return name;
     }
 
-    /** Inputs for a scaffold run. */
     public record Options(Path root, String workerName, String compatibilityDate,
                           String jbakeVersion, String javaVersion, boolean force) {
     }
 
-    /** Outcome of a scaffold run, grouped by action. */
     public record Result(Path root, boolean jbakeProject,
                          List<String> created, List<String> updated, List<String> skipped) {
     }
