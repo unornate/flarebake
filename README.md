@@ -13,12 +13,20 @@ Cloudflare's Git integration (Workers Builds) — no GitHub Actions required.
 ## Requirements
 
 - Java 27+ (to build; the produced jar runs on Java 27+)
-- Maven 3.9+
+
+Maven itself is not required: the project ships a Maven Wrapper (`./mvnw` on
+Unix, `mvnw.cmd` on Windows).
 
 ## Build
 
 ```bash
-mvn clean package
+./mvnw clean package
+```
+
+On Windows:
+
+```powershell
+mvnw.cmd clean package
 ```
 
 The uber jar is written to `target/flarebake.jar`.
