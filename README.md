@@ -60,3 +60,17 @@ Options:
 2. In the Cloudflare dashboard: **Workers & Pages → Create → Workers → Connect to Git**.
 3. Set the **Deploy command** to `npx wrangler deploy` and leave the build command empty
    (Wrangler runs `build.sh` itself via the `[build]` block).
+
+## Releasing
+
+The `Release` workflow builds and tests the project with JDK 27 and publishes
+the uber jar as a GitHub Release when a version tag is pushed:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The release then contains `flarebake-<version>.jar`. The workflow can also be
+started manually from the Actions tab, which builds and uploads the jar as a
+workflow artifact without creating a release.

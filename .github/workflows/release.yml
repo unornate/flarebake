@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 27
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '27'
+          cache: maven
+
+      - name: Build and test
+        run: ./mvnw -B clean verify
+
+      - name: Name the release artifact
+        if: startsWith(github.ref, 'refs/tags/')
+        run: cp target/flarebake.jar "target/flarebake-${GITHUB_REF_NAME#v}.jar"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: flarebake-jar
+          path: target/flarebake.jar
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v3
+        with:
+          files: target/flarebake-*.jar
+          fail_on_unmatched_files: true
+          generate_release_notes: true
