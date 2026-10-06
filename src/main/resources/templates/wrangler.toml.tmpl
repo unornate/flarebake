@@ -1,0 +1,24 @@
+# Cloudflare Workers configuration.
+#
+# The site is baked by JBake into ./output (see build.sh) and deployed as
+# Workers Static Assets. There is no Worker script (main) - this is an
+# assets-only Worker, so Cloudflare simply serves the baked files.
+
+# Name of the Worker. Change this to the name of the Worker you connect to
+# your GitHub repository. It must be unique within your Cloudflare account.
+name = "{{WORKER_NAME}}"
+
+# Required by Wrangler.
+compatibility_date = "{{COMPATIBILITY_DATE}}"
+
+# Wrangler runs this before every `wrangler deploy`, so the deploy command
+# can stay a plain `npx wrangler deploy`.
+[build]
+command = "bash build.sh"
+
+[assets]
+# Folder produced by `jbake -b`.
+directory = "./output"
+
+# Serves about.html at /about and folder index files with a trailing slash.
+html_handling = "auto-trailing-slash"
